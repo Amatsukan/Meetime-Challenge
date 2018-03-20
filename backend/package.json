@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend desafio Meetime",
+  "main": "Server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amatsukan/meetime-back.git"
+  },
+  "author": "Luiz Carlos Ferreira Junior",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Amatsukan/meetime-back/issues"
+  },
+  "homepage": "https://github.com/Amatsukan/meetime-back#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "pipedrive": "^3.0.2"
+  }
+}
