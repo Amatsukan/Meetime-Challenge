@@ -1,6 +1,6 @@
 const Pipedrive = require('pipedrive');
-var pipedrive_con = new Pipedrive.Client('6bfe3419d960e014c55a637083114cdf177e3da0', { strictMode: true });
-
+const fetch = require('node-fetch');
+var pipedrive_con = {}
 
 getAllPersons = function(res){
     pipedrive_con.Persons.getAll({}, function(err, persons) {
@@ -22,17 +22,26 @@ getAllPersons = function(res){
 module.exports = {
 
     postKey : function(req, res){
-    	fetch( 'https://companydomain.pipedrive.com/v1/persons?api_token='+req.body.key ).then( response => {
-            if(response.success == true){
-                pipedrive_con = new Pipedrive.Client( req.body.key, { strictMode: true } );
-                res.status(200)
-            }else{
-                res.status(404).send({error:"key not found"})
+        //req.body.key = "6bfe3419d960e014c55a637083114cdf177e3da0" minha chave
+
+        fetch( 'https://companydomain.pipedrive.com/v1/persons?api_token='+req.body.key ).then( response => response.json().then( json => {
+                console.log(json)
+                if(json.success == true){
+                    pipedrive_con = new Pipedrive.Client( req.body.key, { strictMode: true } );
+                    res.status(200).send({status: "ok"})
+                }else{
+                    pipedrive_con = {}
+                    res.status(404).send({error:"key not found"})
+                }
+            } ).catch({
+                function(response){
+                    res.status(400).send({error: 'Invalid key'})
+                }
+            })
+        ).catch({
+            function(response){
+                res.status(400).send({error: 'Invalid key'})
             }
-        },
-        //onError
-        function(response){
-            res.status(400).send({error: 'Invalid key'})
         })
 	    	
     },
