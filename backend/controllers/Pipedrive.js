@@ -65,5 +65,7 @@ module.exports = {
         getAllPersons(res)
     },
 
-    pipedrive: pipedrive_con
+    pipedrive: function(){
+        return pipedrive_con
+    }
 };

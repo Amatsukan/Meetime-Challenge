@@ -79,12 +79,12 @@ module.exports = {
     },
 
     postCar : function(req, res){
-        if( pipedrive_con.pipedrive == {} ){
+        if( pipedrive_con.pipedrive().Persons == undefined ){
             res.status(500).send({error: 'please read the documentation to know how to configure the pipedrive token'})
             return;
         }
 
-        pipedrive_con.pipedrive.Persons.getAll({}, function(err, persons) {
+        pipedrive_con.pipedrive().Persons.getAll({}, function(err, persons) {
         	var errorMsg = { str : "" };
         	var validPerson = false;
             var o = 0
