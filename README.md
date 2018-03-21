@@ -11,7 +11,6 @@
                 * Status:
                     * 200 success
                     * 404 pipedrive token not found
-                    * 400 car information[age|color] is invalid
     * {HOST}/api/car 
         - Method:POST
             + Description 1: save new car
