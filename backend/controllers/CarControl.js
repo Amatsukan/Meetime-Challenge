@@ -74,8 +74,7 @@ module.exports = {
     },
 
     getCars : function(req, res){
-        res.status(200)
-    	res.json(cars);
+    	res.json(cars).status(200);
     },
 
     postCar : function(req, res){
@@ -93,7 +92,7 @@ module.exports = {
                     validPerson = true;
             }
         	if( !validPerson ){
-                res.status(404).send({error: "The is no personId="+req.body.personId+" in database"})
+                res.status(404).send({error: "The is no personId = "+req.body.personId+" in database"})
             }
             else if( saveOrEditCar( req.body, errorMsg ) ){
             	res.status(200).send({status: "ok"})
@@ -105,15 +104,16 @@ module.exports = {
     },
 
     deleteCar : function(req, res){
-        if( pipedrive_con.pipedrive == {} ){
+        if( pipedrive_con.pipedrive().Persons == undefined ){
             res.status(500).send({error: 'please read the documentation to know how to configure the pipedrive token'})
-            return;
+            return
         }
-        if( req.body.carId in cars[req.body.carId] && car.carId != undefined ){
+
+        if( ( req.body.carId in cars ) && req.body.carId != undefined ){
     		delete cars[req.body.carId]
-    		res.status(200)
+    		res.status(200).send({status: "ok"})
     	}else
-	    	res.status(404).send({error: 'there is no car whit id='+req.body.carId})
+	    	res.status(404).send({error: 'there is no car with id = '+req.body.carId})
     }
 }
 
