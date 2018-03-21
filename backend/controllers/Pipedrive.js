@@ -3,6 +3,11 @@ const fetch = require('node-fetch');
 var pipedrive_con = {}
 
 getAllPersons = function(res){
+    if( pipedrive_con.Persons == undefined ){
+        res.status(500).send({error: 'please read the documentation to know how to configure the pipedrive token'})
+        return;
+    }
+
     pipedrive_con.Persons.getAll({}, function(err, persons) {
         if (err) throw err;
 
@@ -49,8 +54,16 @@ module.exports = {
         })
 	    	
     },
+
     getClients: function(req, res){
+
+        if( pipedrive_con == {} ){
+            res.status(500).send({error: 'please read the documentation to know how to configure the pipedrive token'})
+            return;
+        }
+
         getAllPersons(res)
     },
+
     pipedrive: pipedrive_con
 };

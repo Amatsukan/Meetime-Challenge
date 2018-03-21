@@ -54,6 +54,12 @@ saveOrEditCar = function(car, errorMsg){
 module.exports = {
 
     getCar : function(req, res){
+        
+        if( pipedrive_con.pipedrive == {} ){
+            res.status(500).send({error: 'please read the documentation to know how to configure the pipedrive token'})
+            return;
+        }
+
         carId = req.query['id']
     	if( carId == undefined ){
     		res.status(400).send({Error: "invalid car id"})
@@ -73,6 +79,10 @@ module.exports = {
     },
 
     postCar : function(req, res){
+        if( pipedrive_con.pipedrive == {} ){
+            res.status(500).send({error: 'please read the documentation to know how to configure the pipedrive token'})
+            return;
+        }
 
         pipedrive_con.pipedrive.Persons.getAll({}, function(err, persons) {
         	var errorMsg = { str : "" };
@@ -95,6 +105,10 @@ module.exports = {
     },
 
     deleteCar : function(req, res){
+        if( pipedrive_con.pipedrive == {} ){
+            res.status(500).send({error: 'please read the documentation to know how to configure the pipedrive token'})
+            return;
+        }
         if( req.body.carId in cars[req.body.carId] && car.carId != undefined ){
     		delete cars[req.body.carId]
     		res.status(200)
